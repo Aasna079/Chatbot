@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: 4g
+    
+    # We use entrypoint to set the shell and command to run the logic
+    entrypoint: ["/bin/sh", "-c"]
+    command: 
+      - |
+        ollama serve & 
+        sleep 5; 
+        ollama pull tinyllama; 
+        ollama pull nomic-embed-text; 
+        wait
+
+volumes:
+  ollama_data:
