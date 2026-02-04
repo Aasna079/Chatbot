@@ -1,0 +1,40 @@
+import ollama
+import chromadb
+
+# 1. Initialize the local Vector Database (ChromaDB)
+# This creates a folder named 'my_vector_db' to store your data
+# can use persistentClient with path arg to persist
+client = chromadb.Client()
+collection = client.get_or_create_collection(name="simple_knowledge")
+
+
+# 2. Load the simple text file and embed each line
+print("Reading simple.txt and generating embeddings...")
+
+with open('simple.txt', 'r') as f:
+    for i, line in enumerate(f):
+        content = line.strip()
+        if not content:
+            continue
+        response = ollama.embed(model='nomic-embed-text', input=content)
+        embedding = response['embeddings'][0]
+        collection.add(
+            ids=[f"id_{i}"],
+            embeddings=[embedding],
+            documents=[content],
+            metadatas=[{"line": i}]
+        )
+
+print("Database built successfully!")
+
+# 3. Test Retrieval
+query = "How do I get paid for parking?"
+query_embed = ollama.embed(model='nomic-embed-text', input=query)['embeddings'][0]
+
+results = collection.query(
+    query_embeddings=[query_embed],
+    n_results=1
+)
+
+print(f"\nQuestion: {query}")
+print(f"Retrieved Context: {results['documents'][0][0]}")
