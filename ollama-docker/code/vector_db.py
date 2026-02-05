@@ -1,10 +1,11 @@
-import ollama
+from ollama import Client
 import chromadb
 
 # 1. Initialize the local Vector Database (ChromaDB)
 # This creates a folder named 'my_vector_db' to store your data
 # can use persistentClient with path arg to persist
 client = chromadb.Client()
+remote_client = Client(host=f'http://localhost:11434')
 collection = client.get_or_create_collection(name="simple_knowledge")
 
 
@@ -16,7 +17,7 @@ with open('simple.txt', 'r') as f:
         content = line.strip()
         if not content:
             continue
-        response = ollama.embed(model='nomic-embed-text', input=content)
+        response = remote_client.embed(model='nomic-embed-text', input=content)
         embedding = response['embeddings'][0]
         collection.add(
             ids=[f"id_{i}"],
@@ -29,7 +30,7 @@ print("Database built successfully!")
 
 # 3. Test Retrieval
 query = "How do I get paid for parking?"
-query_embed = ollama.embed(model='nomic-embed-text', input=query)['embeddings'][0]
+query_embed = remote_client.embed(model='nomic-embed-text', input=query)['embeddings'][0]
 
 results = collection.query(
     query_embeddings=[query_embed],

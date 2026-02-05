@@ -1,8 +1,10 @@
 import ollama
+from ollama import Client
 import chromadb
 
 # 1. Setup the Database
 client = chromadb.Client()
+remote_client = Client(host=f'http://localhost:11434')
 collection = client.get_or_create_collection(name="chunking_demo")
 
 # 2. The Raw Data (A single long sentence/paragraph)
@@ -25,7 +27,7 @@ for idx, c in enumerate(chunks):
 # 4. Embedding and Adding to DB
 print("\nEmbedding chunks...")
 for i, text_chunk in enumerate(chunks):
-    response = ollama.embed(model='nomic-embed-text', input=text_chunk)
+    response = remote_client.embed(model='nomic-embed-text', input=text_chunk)
     collection.add(
         ids=[f"chunk_{i}"],
         embeddings=[response['embeddings'][0]],
@@ -34,7 +36,7 @@ for i, text_chunk in enumerate(chunks):
 
 # 5. The "Incomplete Context" Search
 query = "Who earns $600?"
-query_embed = ollama.embed(model='nomic-embed-text', input=query)['embeddings'][0]
+query_embed = remote_client.embed(model='nomic-embed-text', input=query)['embeddings'][0]
 
 # We ask for the single most similar chunk
 results = collection.query(
