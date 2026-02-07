@@ -13,15 +13,15 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.40"
-          memory: 4g
+          cpus: "0.80"
+          memory: 8g
 
     entrypoint: ["/bin/sh", "-c"]
     command: 
     - |
       ollama serve &
       sleep 5
-      ollama pull qwen2.5:3b
+      ollama pull qwen2.5:7b
       ollama pull nomic-embed-text
       wait
 
