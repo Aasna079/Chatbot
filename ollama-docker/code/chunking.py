@@ -1,4 +1,3 @@
-import ollama
 from ollama import Client
 import chromadb
 
@@ -27,7 +26,7 @@ for idx, c in enumerate(chunks):
 # 4. Embedding and Adding to DB
 print("\nEmbedding chunks...")
 for i, text_chunk in enumerate(chunks):
-    response = remote_client.embed(model='nomic-embed-text', input=text_chunk)
+    response = remote_client.embed(model='nomic-embed-text', input=f'search_document: {text_chunk}')
     collection.add(
         ids=[f"chunk_{i}"],
         embeddings=[response['embeddings'][0]],
@@ -36,12 +35,12 @@ for i, text_chunk in enumerate(chunks):
 
 # 5. The "Incomplete Context" Search
 query = "Who earns $600?"
-query_embed = remote_client.embed(model='nomic-embed-text', input=query)['embeddings'][0]
+query_embed = remote_client.embed(model='nomic-embed-text', input=f'query: {query}')['embeddings'][0]
 
 # We ask for the single most similar chunk
 results = collection.query(
     query_embeddings=[query_embed],
-    n_results=1
+    n_results=2
 )
 
 full_context = "\n".join(results['documents'][0])
