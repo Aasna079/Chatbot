@@ -29,6 +29,19 @@ To restart just use
 docker compose start
 ```
 
+### To Use GPU
+
+```
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+sudo systemctl restart docker
+```
+
+and start with another docker file
+
+```
+docker compose -f docker-compose-gpu.yaml up -d
+```
 
 # Ollama Model Naming Guide
 
