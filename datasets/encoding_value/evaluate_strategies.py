@@ -5,7 +5,7 @@ from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 from sklearn.model_selection import KFold, cross_validate
 
 # TODO: Replace with your actual student ID
-STUDENT_ID = 42
+STUDENT_ID = 7
 
 
 def evaluate_strategy(csv_file, strategy):
@@ -49,7 +49,7 @@ def evaluate_strategy(csv_file, strategy):
 
     # Evaluate using Linear Regression
     cv_method = KFold(n_splits=5, shuffle=True, random_state=STUDENT_ID)
-    model = LinearRegression(random_state=STUDENT_ID)
+    model = LinearRegression()
 
     cv_results = cross_validate(
         model,
@@ -72,8 +72,8 @@ def evaluate_strategy(csv_file, strategy):
 if __name__ == "__main__":
     # R² should be as close to 1 as possible
     # MSE and MAE should be as low as possible
-    filename = "data_1.csv"
+    filename = "data_2.csv"
     # TODO: Keep changing strategy and document results in a table for your report
     # Strategies: ordinal, onehot
-    result = evaluate_strategy(csv_file=filename, strategy="onehot")
+    result = evaluate_strategy(csv_file=filename, strategy="ordinal")
     print(result)

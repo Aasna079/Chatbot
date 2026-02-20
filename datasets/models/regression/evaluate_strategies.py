@@ -11,7 +11,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.pipeline import Pipeline
 
 # TODO: Replace with your actual student ID
-STUDENT_ID = 1
+STUDENT_ID = 7
 
 def diagnostic_eda(csv_file):
     """Visualizes the regression data to predict model suitability."""
@@ -70,7 +70,7 @@ def evaluate_model_ability(csv_file, model_type):
 if __name__ == "__main__":
     # R² should be as close to 1 as possible
     # MSE should be as low as possible
-    filename = 'data_1.csv'
+    filename = 'data_3.csv'
     diagnostic_eda(csv_file=filename)
     # TODO: Keep changing model and document results in a table for your report
     # Models: linear, knn, svm, tree

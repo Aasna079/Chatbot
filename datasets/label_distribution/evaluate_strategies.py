@@ -15,7 +15,7 @@ from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 
 # TODO: Replace with your actual student ID
-STUDENT_ID = 1
+STUDENT_ID = 7
 
 
 def diagnostic_eda(csv_file):
@@ -115,5 +115,5 @@ if __name__ == "__main__":
     filename = "data_1.csv"
     diagnostic_eda(csv_file=filename)
     # Strategies: none, under, over, smote, weights
-    result = evaluate_strategy(csv_file=filename, strategy="smote")
+    result = evaluate_strategy(csv_file=filename, strategy="over")
     print(result)

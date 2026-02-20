@@ -7,7 +7,7 @@ import seaborn as sns
 import numpy as np
 
 # TODO: Replace with your actual student ID
-STUDENT_ID = 1
+STUDENT_ID = 7
 
 def diagnostic_eda(csv_file):
     analysis_png = f'{csv_file.split(".")[0]}_analysis.png'
@@ -106,9 +106,9 @@ def evaluate_strategy(csv_file, strategy):
 if __name__ == "__main__":
     # R² should be as close to 1 as possible
     # RAE means how far off the predictions are from the actual values, so lower is better
-    filename = 'data_1.csv'
+    filename = 'data_4.csv'
     diagnostic_eda(csv_file=filename)
     # TODO : Keep changing strategy and document results in a table for your report
     # Strategies : drop, mean, median, knn, ffill, bfill
-    result = evaluate_strategy(csv_file=filename, strategy='mean')
+    result = evaluate_strategy(csv_file=filename, strategy='drop')
     print(result)

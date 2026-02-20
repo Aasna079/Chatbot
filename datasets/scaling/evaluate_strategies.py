@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # TODO: Replace with your actual student ID
-STUDENT_ID = 1
+STUDENT_ID = 7
 
 def diagnostic_eda(csv_file):
     analysis_png = f'{csv_file.split(".")[0]}_analysis.png'
@@ -81,9 +81,9 @@ def evaluate_strategy(csv_file, strategy):
 if __name__ == "__main__":
     # R² should be as close to 1 as possible
     # MSE and MAE should be as low as possible
-    filename = 'data_2.csv'
+    filename = 'data_1.csv'
     diagnostic_eda(csv_file=filename)
     # TODO: Keep changing strategy and document results in a table for your report
     # Strategies: none, minmax, standard
-    result = evaluate_strategy(csv_file=filename, strategy='minmax')
+    result = evaluate_strategy(csv_file=filename, strategy='none')
     print(result)

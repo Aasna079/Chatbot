@@ -12,7 +12,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import make_scorer, precision_score, recall_score, f1_score
 
 # TODO: Replace with your actual student ID
-STUDENT_ID = 1
+STUDENT_ID = 7
 
 def diagnostic_eda(csv_file):
     """Visualizes classification clusters to predict model suitability."""
@@ -77,7 +77,7 @@ def evaluate_model_ability(csv_file, model_type):
 if __name__ == "__main__":
     # Accuracy and F1_Score should be as close to 1 as possible
     # Change the filename to data_4, data_5, data_6, or data_7 as needed
-    filename = 'data_4.csv' 
+    filename = 'data_7.csv' 
     
     diagnostic_eda(csv_file=filename)
     
