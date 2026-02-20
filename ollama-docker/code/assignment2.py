@@ -105,7 +105,7 @@ while True:
     )
 
     answer = response['response']
-
+    
     print(f"Answer: {answer}")
 
     user_continue = input("do you want to continue? (y/n): ")
