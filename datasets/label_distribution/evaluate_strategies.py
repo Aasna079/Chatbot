@@ -115,5 +115,5 @@ if __name__ == "__main__":
     filename = "data_1.csv"
     diagnostic_eda(csv_file=filename)
     # Strategies: none, under, over, smote, weights
-    result = evaluate_strategy(csv_file=filename, strategy="over")
+    result = evaluate_strategy(csv_file=filename, strategy="none")
     print(result)
